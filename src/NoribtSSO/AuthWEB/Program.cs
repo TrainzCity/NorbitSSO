@@ -6,6 +6,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        // Add HttpClientFactory for API calls
+        builder.Services.AddHttpClient();
         // Add services to the container.
         builder.Services.AddRazorPages();
 

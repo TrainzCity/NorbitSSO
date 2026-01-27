@@ -2,12 +2,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using AuthWEB.Model;
 
 namespace AuthWEB.Pages
 {
     public class Register : PageModel
     {
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
         [BindProperty]
         public User User { get; set; } = new();
 
@@ -25,7 +28,7 @@ namespace AuthWEB.Pages
             // Initialize page for GET request
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             // Validate model state
             if (!ModelState.IsValid)
@@ -108,9 +111,8 @@ namespace AuthWEB.Pages
 
             try
             {
-                // Here you would save the user to the database
-                // Example: await _context.Users.AddAsync(User);
-                // await _context.SaveChangesAsync();
+                // Send user data to NorbitAPI backend
+                await SendUserToBackendAsync(User);
 
                 SuccessMessage = $"Registration successful! Welcome, {User.Name} {User.Surname}. Your username is: {User.Login}";
                 
@@ -125,6 +127,44 @@ namespace AuthWEB.Pages
             {
                 ErrorMessage = $"An error occurred during registration: {ex.Message}";
                 return Page();
+            }
+        }
+        
+        /// <summary>
+        /// Sends the user data to the NorbitAPI backend via POST request
+        /// </summary>
+        /// <param name="user">The user object to register</param>
+        /// <returns>Task representing the async operation</returns>
+        private async Task SendUserToBackendAsync(User user)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                
+                // Get API base URL from configuration
+                var apiBaseUrl = _configuration["ApiSettings:BaseUrl"] ?? "http://localhost:5000";
+                var apiEndpoint = $"{apiBaseUrl}/api/Users";
+
+                // Serialize user to JSON
+                var jsonContent = JsonSerializer.Serialize(user);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                // Send POST request to backend
+                var response = await client.PostAsync(apiEndpoint, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Backend API returned {response.StatusCode}: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Failed to connect to registration service: {ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error sending user data to backend: {ex.Message}", ex);
             }
         }
 
