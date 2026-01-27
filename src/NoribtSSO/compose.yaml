@@ -1,0 +1,7 @@
+﻿services:
+  authweb:
+    image: authweb
+    build:
+      context: .
+      dockerfile: AuthWEB/Dockerfile
+
