@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using AuthWEB.Model;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AuthWEB.Pages
 {
@@ -35,6 +36,9 @@ namespace AuthWEB.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // Fix non-Used field validation
+            ModelState["User.Password"].Errors.Clear();
+            ModelState["User.Password"].ValidationState = ModelValidationState.Valid;
             // Validate model state
             if (!ModelState.IsValid)
             {
