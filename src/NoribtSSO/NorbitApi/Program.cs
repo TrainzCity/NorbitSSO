@@ -1,4 +1,4 @@
-
+using NorbitApi.Model;
 namespace NorbitApi
 {
     public class Program
@@ -13,6 +13,7 @@ namespace NorbitApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<NorbitBaseContext>();
 
             var app = builder.Build();
 
