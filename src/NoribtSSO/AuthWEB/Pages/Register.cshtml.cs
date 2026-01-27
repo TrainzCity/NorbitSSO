@@ -27,15 +27,20 @@ namespace AuthWEB.Pages
         {
             // Initialize page for GET request
         }
+        public Register(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        {
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
             // Validate model state
-            if (!ModelState.IsValid)
-            {
-                ErrorMessage = "Please correct the validation errors below.";
-                return Page();
-            }
+            // if (!ModelState.IsValid)
+            // {
+            //     ErrorMessage = "Please correct the validation errors below.";
+            //     return Page();
+            // }
 
             // Validate password confirmation
             if (Password != ConfirmPassword)
