@@ -1,0 +1,6 @@
+@NorbitApi_HostAddress = http://localhost:5207
+
+GET {{NorbitApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
