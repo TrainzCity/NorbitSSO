@@ -1,0 +1,111 @@
+@page
+@model AuthWEB.Pages.Register
+@{
+    ViewData["Title"] = "User Registration";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>@ViewData["Title"]</h1>
+            
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Model.ErrorMessage
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="alert alert-success" role="alert">
+                    @Model.SuccessMessage
+                </div>
+            }
+
+            <form method="post" class="mt-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="surname" class="form-label">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="surname" name="User.Surname" 
+                               value="@Model.User?.Surname" required maxlength="50">
+                        <span asp-validation-for="User.Surname" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="User.Name" 
+                               value="@Model.User?.Name" required maxlength="25">
+                        <span asp-validation-for="User.Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="patronymic" class="form-label">Middle Name</label>
+                        <input type="text" class="form-control" id="patronymic" name="User.Patronymic" 
+                               value="@Model.User?.Patronymic" maxlength="30">
+                        <small class="form-text text-muted">Optional</small>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="birthday" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="birthday" name="User.Birthday" 
+                               value="@Model.User?.Birthday.ToString("yyyy-MM-dd")" required>
+                        <span asp-validation-for="User.Birthday" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="User.Email" 
+                               value="@Model.User?.Email" maxlength="120">
+                        <small class="form-text text-muted">Optional</small>
+                        <span asp-validation-for="User.Email" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" id="phone" name="User.Phone" 
+                               value="@Model.User?.Phone" required maxlength="12" placeholder="Format: 12 digits">
+                        <span asp-validation-for="User.Phone" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="login" class="form-label">Username <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="login" name="User.Login" 
+                               value="@Model.User?.Login" required maxlength="25">
+                        <span asp-validation-for="User.Login" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="password" name="Password" 
+                               required minlength="6">
+                        <small class="form-text text-muted">Minimum 6 characters</small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" 
+                               required minlength="6">
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                    <a href="/" class="btn btn-secondary btn-lg">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
