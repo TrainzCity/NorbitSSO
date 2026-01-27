@@ -36,11 +36,11 @@ namespace AuthWEB.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             // Validate model state
-            // if (!ModelState.IsValid)
-            // {
-            //     ErrorMessage = "Please correct the validation errors below.";
-            //     return Page();
-            // }
+            if (!ModelState.IsValid)
+            {
+                ErrorMessage = "Please correct the validation errors below.";
+                return Page();
+            }
 
             // Validate password confirmation
             if (Password != ConfirmPassword)

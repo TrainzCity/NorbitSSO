@@ -7,7 +7,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add HttpClientFactory for API calls
-        builder.Services.AddHttpClient();
+        builder.Services.AddHttpClient("", client => client.Timeout = TimeSpan.FromSeconds(600));
         // Add services to the container.
         builder.Services.AddRazorPages();
 
