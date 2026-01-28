@@ -4,6 +4,29 @@
              xmlns:local="clr-namespace:UserApp"
              StartupUri="Windows\MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="TextBlock" x:Key="TblMain">
+            <Setter Property="FontSize" Value="21"></Setter>
+            <Setter Property="TextAlignment" Value="Right"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <Style TargetType="TextBox" x:Key="TbxMain">
+            <Setter Property="Width" Value="200"></Setter>
+            <Setter Property="FontSize" Value="21"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="21"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="21"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="StackPanelAdaptive">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
     </Application.Resources>
 </Application>
