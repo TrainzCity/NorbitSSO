@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace NorbitApi.Controllers
         }
 
         // GET: api/Users
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -28,6 +30,7 @@ namespace NorbitApi.Controllers
         }
 
         // GET: api/Users/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
