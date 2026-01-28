@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using NorbitApi.Model;
 
 namespace NorbitApi.Controllers
@@ -20,7 +25,25 @@ namespace NorbitApi.Controllers
         {
             _context = context;
         }
-
+         
+        [HttpGet("login")]
+        public async Task<ActionResult<string>> GenerateTocken(string login, byte[] password)
+        {
+            var User = await _context.Users.FirstOrDefaultAsync(p => p.Login == login && p.Password == password);
+            if (User != null)
+            {
+                var claims = new List<Claim> {new Claim(ClaimTypes.Name, login) };
+                var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    claims: claims,
+                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), // время действия 2 минуты
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            
+                return new JwtSecurityTokenHandler().WriteToken(jwt);
+            }
+            return Unauthorized();
+        }
         // GET: api/Users
         [Authorize]
         [HttpGet]
