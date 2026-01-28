@@ -27,22 +27,32 @@ namespace NorbitApi.Controllers
         }
          
         [HttpGet("login")]
-        public async Task<ActionResult<string>> GenerateTocken(string login, byte[] password)
+        public async Task<ActionResult<string>> GenerateTocken(string login, string passwordBase64)
         {
-            var User = await _context.Users.FirstOrDefaultAsync(p => p.Login == login && p.Password == password);
-            if (User != null)
+            try
             {
-                var claims = new List<Claim> {new Claim(ClaimTypes.Name, login) };
-                var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    claims: claims,
-                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), // время действия 2 минуты
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            
-                return new JwtSecurityTokenHandler().WriteToken(jwt);
+                // Convert Base64 string back to byte array
+                byte[] password = Convert.FromBase64String(passwordBase64);
+        
+                var user = await _context.Users.FirstOrDefaultAsync(p => p.Login == login && p.Password == password);
+                if (user != null)
+                {
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, login) };
+                    var jwt = new JwtSecurityToken(
+                        issuer: AuthOptions.ISSUER,
+                        audience: AuthOptions.AUDIENCE,
+                        claims: claims,
+                        expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), // время действия 2 минуты
+                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+        
+                    return new JwtSecurityTokenHandler().WriteToken(jwt);
+                }
+                return Unauthorized();
             }
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return BadRequest($"Invalid request: {ex.Message}");
+            }
         }
         // GET: api/Users
         [Authorize]
