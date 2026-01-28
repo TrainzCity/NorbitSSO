@@ -20,5 +20,10 @@ namespace UserApp.Windows
         {
             InitializeComponent();
         }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

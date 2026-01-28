@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Background="Cyan">
+            <TextBlock Style="{StaticResource TblMain}" HorizontalAlignment="Left" Text="Пользовательское приложение"></TextBlock>
+        </DockPanel>
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"></Frame>
+        <Button Grid.Row="2" x:Name="BtnBack" Background="OrangeRed" Content="Закрыть" HorizontalAlignment="Right" Click="BtnBack_Click"></Button>
     </Grid>
 </Window>
