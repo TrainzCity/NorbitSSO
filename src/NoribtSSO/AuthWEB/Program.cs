@@ -10,6 +10,10 @@ public class Program
         builder.Services.AddHttpClient("", client => client.Timeout = TimeSpan.FromSeconds(600));
         // Add services to the container.
         builder.Services.AddRazorPages();
+        builder.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromHours(1);
+        });
 
         var app = builder.Build();
 
@@ -23,6 +27,8 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        app.UseSession();
 
         app.UseRouting();
 
