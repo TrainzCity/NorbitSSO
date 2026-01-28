@@ -1,0 +1,44 @@
+﻿<Page x:Class="UserApp.Pages.UserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UserApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserPage">
+
+    <Grid>
+        <StackPanel Style="{StaticResource StackPanelAdaptive}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TblMain}" Text="Фамилия:"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Surname}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TblMain}" Text="Имя:"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Name}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TblMain}" Text="Отчество:"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Patronymic}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TblMain}" Text="Дата рождения:"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Bithday, StringFormat=dd.MM.yyyy}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TblMain}" Text="Возраст:"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Age}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TblMain}" Text="Email:"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Email}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TblMain}" Text="Номер телефона:"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Phone}"></TextBlock>
+            </StackPanel>
+            <Button Background="Red" Content="Sign Out" Click="BtnLogout_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Page>
