@@ -12,19 +12,19 @@
         <StackPanel Style="{StaticResource StackPanelAdaptive}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource TblMain}" Text="Фамилия:"></TextBlock>
-                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Surname}"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding surname}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource TblMain}" Text="Имя:"></TextBlock>
-                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Name}"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding name}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource TblMain}" Text="Отчество:"></TextBlock>
-                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Patronymic}"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding patronymic}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource TblMain}" Text="Дата рождения:"></TextBlock>
-                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Bithday, StringFormat=dd.MM.yyyy}"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding birthday, StringFormat=dd.MM.yyyy}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource TblMain}" Text="Возраст:"></TextBlock>
@@ -32,11 +32,11 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource TblMain}" Text="Email:"></TextBlock>
-                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Email}"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding email}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Style="{StaticResource TblMain}" Text="Номер телефона:"></TextBlock>
-                <TextBlock Style="{StaticResource TblMain}" Text="{Binding Phone}"></TextBlock>
+                <TextBlock Style="{StaticResource TblMain}" Text="{Binding phone}"></TextBlock>
             </StackPanel>
             <Button Background="Red" Content="Sign Out" Click="BtnLogout_Click"></Button>
         </StackPanel>

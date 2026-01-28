@@ -37,7 +37,8 @@ namespace NorbitApi.Controllers
                 var user = await _context.Users.FirstOrDefaultAsync(p => p.Login == login && p.Password == password);
                 if (user != null)
                 {
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, login) };
+                    string uuidString = user.Uuid.ToString();
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Sid, uuidString) };
                     var jwt = new JwtSecurityToken(
                         issuer: AuthOptions.ISSUER,
                         audience: AuthOptions.AUDIENCE,
@@ -133,6 +134,55 @@ namespace NorbitApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+        /// <summary>
+        /// Logout endpoint - invalidates the user's session/token
+        /// </summary>
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                // Extract username from JWT claims
+                var sidClaim = User.FindFirst(ClaimTypes.Sid)?.Value;
+
+                if (string.IsNullOrEmpty(sidClaim))
+                {
+                    return BadRequest("Unable to identify user from token");
+                }
+                // Return success response
+                return Ok(new { message = "Logout successful", login = sidClaim });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Logout failed: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Validates if the current token is still valid
+        /// Used by client to check token status before making API calls
+        /// </summary>
+        [Authorize]
+        [HttpGet("validate-token")]
+        public IActionResult ValidateToken()
+        {
+            try
+            {
+                var sidClaim = User.FindFirst(ClaimTypes.Sid)?.Value;
+
+                if (string.IsNullOrEmpty(sidClaim))
+                {
+                    return Unauthorized(new { message = "Invalid token", isValid = false });
+                }
+
+                return Ok(new { message = "Token is valid", login = sidClaim, isValid = true });
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { message = ex.Message, isValid = false });
+            }
         }
 
         private bool UserExists(Guid id)

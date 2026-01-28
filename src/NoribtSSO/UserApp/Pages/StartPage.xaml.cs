@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using UserApp.Model;
 using UserApp.Services;
+using UserApp.Tools;
 
 namespace UserApp.Pages
 {
@@ -105,7 +107,13 @@ namespace UserApp.Pages
                 {
                     // Save token locally
                     _tokenManager.SaveToken(token);
-                    
+
+                    // Save userInfo
+                    string id = ClaimsHelper.ExtractUuidFromToken(token);
+                    ApiClient client = new ApiClient();
+                    User user = client.GetAsync<User>($"/api/Users/{id}").Result;
+                    _tokenManager.SaveUserInfo(user);
+
                     // Send success response to browser
                     string responseString = "<html><body><h1>Authentication Successful!</h1><p>You can close this window and return to the application.</p></body></html>";
                     byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
@@ -117,7 +125,7 @@ namespace UserApp.Pages
                     this.Dispatcher.Invoke(() =>
                     {
                         MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        NavigateToUserPage();
+                        NavigateToUserPage(user);
                     });
                 }
                 else
@@ -142,9 +150,9 @@ namespace UserApp.Pages
             }
         }
 
-        private void NavigateToUserPage()
+        private void NavigateToUserPage(User user)
         {
-            this.NavigationService?.Navigate(new UserPage());
+            this.NavigationService?.Navigate(new UserPage(user));
         }
     }
 }

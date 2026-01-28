@@ -8,24 +8,32 @@ namespace UserApp.Model
 {
     public partial class User
     {
-        public Guid Uuid { get; set; }
+        public Guid uuid { get; set; }
 
-        public string Surname { get; set; } = null!;
+        public string surname { get; set; } = null!;
 
-        public string Name { get; set; } = null!;
+        public string name { get; set; } = null!;
 
-        public string? Patronymic { get; set; }
+        public string? patronymic { get; set; }
 
-        public DateOnly Birthday { get; set; }
+        public DateOnly birthday { get; set; }
 
-        public string? Email { get; set; }
+        public string? email { get; set; }
 
-        public string Phone { get; set; } = null!;
+        public string phone { get; set; } = null!;
 
-        public string Login { get; set; } = null!;
+        public string login { get; set; } = null!;
 
-        public byte[] Password { get; set; } = null!;
+        public byte[] password { get; set; } = null!;
 
         public bool IsBlocked { get; set; }
+        public string FullName => $"{surname} {name} {patronymic}";
+        public int Age { get
+            {
+                DateTime now = DateTime.Today;
+                int age = now.Year - birthday.Year;
+                if (birthday.ToDateTime(new TimeOnly()) > now.AddYears(-age)) age--;
+                return age;
+            } }
     }
 }
