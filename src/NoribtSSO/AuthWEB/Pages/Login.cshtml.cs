@@ -86,6 +86,14 @@ namespace AuthWEB.Pages
                     SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
                     Expires = DateTimeOffset.UtcNow.AddMinutes(2) // Token expires in 2 minutes
                 });
+                
+                // NEW: Check if this is a WPF app request (returnUrl parameter)
+                var returnUrl = Request.Query["returnUrl"].ToString();
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    // Redirect back to WPF app callback URI with token
+                    return Redirect($"{returnUrl}?token={Uri.EscapeDataString(JwtToken)}&status=success");
+                }
 
                 SuccessMessage = $"Login successful! Welcome, {Username}. Your JWT token has been securely stored.";
                 
