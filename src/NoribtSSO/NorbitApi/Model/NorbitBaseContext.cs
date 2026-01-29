@@ -25,7 +25,7 @@ public partial class NorbitBaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=192.168.2.2;Database=NorbitBase;User Id=ituser09;Password=r3tz4Jev;Encrypt=False").UseLazyLoadingProxies();
+        => optionsBuilder.UseSqlServer("Server=sql-server;Database=NorbitBase;User Id=ituser09;Password=r3tz4Jev;Encrypt=False").UseLazyLoadingProxies();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

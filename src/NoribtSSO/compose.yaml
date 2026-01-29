@@ -4,17 +4,11 @@
     build:
       context: .
       dockerfile: AuthWEB/Dockerfile
-    ports:
-      - 7067:8081
-      - 5020:8080
   api:
     image: norbitapi
     build:
       context: .
       dockerfile: NorbitApi/Dockerfile
-    ports:
-      - 7034:8081
-      - 5207:8080
   sql-server:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
