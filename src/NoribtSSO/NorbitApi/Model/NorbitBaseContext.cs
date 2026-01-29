@@ -41,7 +41,6 @@ public partial class NorbitBaseContext : DbContext
         {
             entity.ToTable("Log");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Time).HasColumnType("datetime");
 
             entity.HasOne(d => d.Status).WithMany(p => p.Logs)

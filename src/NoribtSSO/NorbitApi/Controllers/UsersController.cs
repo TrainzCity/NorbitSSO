@@ -37,6 +37,12 @@ namespace NorbitApi.Controllers
                 var user = await _context.Users.FirstOrDefaultAsync(p => p.Login == login && p.Password == password);
                 if (user != null)
                 {
+                    if (user.IsBlocked)
+                    {
+                        _context.Logs.Add(new Log() { StatusId = 5, TypeId = 2, User = user, Time = DateTime.Now });
+                        await _context.SaveChangesAsync();
+                        return Forbid();
+                    }
                     string uuidString = user.Uuid.ToString();
                     var claims = new List<Claim> { new Claim(ClaimTypes.Sid, uuidString) };
                     var jwt = new JwtSecurityToken(
@@ -45,9 +51,13 @@ namespace NorbitApi.Controllers
                         claims: claims,
                         expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), // время действия 2 минуты
                         signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                    _context.Logs.Add(new Log() { StatusId = 1, TypeId = 2, User = user, Time = DateTime.Now });
+                    await _context.SaveChangesAsync();
         
                     return new JwtSecurityTokenHandler().WriteToken(jwt);
                 }
+                _context.Logs.Add(new Log() { StatusId = 2, TypeId = 2, Time = DateTime.Now });
+                await _context.SaveChangesAsync();
                 return Unauthorized();
             }
             catch (Exception ex)
@@ -115,6 +125,7 @@ namespace NorbitApi.Controllers
         public async Task<ActionResult<User>> PostUser(User user)
         {
             _context.Users.Add(user);
+            _context.Logs.Add(new Log() { StatusId = 1, TypeId = 1, User = user, Time = DateTime.Now });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Uuid }, user);
@@ -149,9 +160,15 @@ namespace NorbitApi.Controllers
 
                 if (string.IsNullOrEmpty(sidClaim))
                 {
+                    _context.Logs.Add(new Log() { StatusId = 3, TypeId = 5, Time = DateTime.Now });
+                    await _context.SaveChangesAsync();
                     return BadRequest("Unable to identify user from token");
                 }
                 // Return success response
+                Guid id = new Guid(sidClaim);
+                Model.User currUser = _context.Users.FirstOrDefault(p => p.Uuid == id);
+                _context.Logs.Add(new Log() { StatusId = 1, TypeId = 5, Time = DateTime.Now });
+                await _context.SaveChangesAsync();
                 return Ok(new { message = "Logout successful", login = sidClaim });
             }
             catch (Exception ex)
@@ -174,9 +191,15 @@ namespace NorbitApi.Controllers
 
                 if (string.IsNullOrEmpty(sidClaim))
                 {
+                    _context.Logs.Add(new Log() { StatusId = 3, TypeId = 3, Time = DateTime.Now });
+                    _context.SaveChanges();
                     return Unauthorized(new { message = "Invalid token", isValid = false });
                 }
 
+                Guid id = new Guid(sidClaim);
+                Model.User currUser = _context.Users.FirstOrDefault(p => p.Uuid == id);
+                _context.Logs.Add(new Log() { StatusId = 1, TypeId = 3, User = currUser, Time = DateTime.Now });
+                _context.SaveChanges();
                 return Ok(new { message = "Token is valid", login = sidClaim, isValid = true });
             }
             catch (Exception ex)
