@@ -86,7 +86,8 @@ namespace AuthWEB.Pages
             }
 
             // Validate phone number format (12 digits)
-            if (User.Phone.Length != 12 || !User.Phone.All(char.IsDigit))
+            string phoneDigits = User.Phone.Substring(1, 11);
+            if (User.Phone[0] != '+' || User.Phone.Length != 12 || !phoneDigits.All(char.IsDigit))
             {
                 ErrorMessage = "Phone number must be exactly 12 digits.";
                 return Page();
