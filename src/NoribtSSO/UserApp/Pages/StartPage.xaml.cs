@@ -11,7 +11,7 @@ namespace UserApp.Pages
     public partial class StartPage : Page
     {
         private TokenManager _tokenManager;
-        private const string AUTH_WEB_URL = "https://localhost:7067"; // Adjust based on your setup
+        private const string AUTH_WEB_URL = "http://localhost:4080"; // Adjust based on your setup
         
         public StartPage()
         {

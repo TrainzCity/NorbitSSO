@@ -12,7 +12,7 @@ namespace UserApp.Services
     {
         private readonly TokenManager _tokenManager;
         private readonly ApiClient _apiClient;
-        private const string API_BASE_URL = "http://localhost:5207";
+        private const string API_BASE_URL = "http://localhost:4080";
 
         public SessionManager()
         {
