@@ -38,7 +38,7 @@
                 <TextBlock Style="{StaticResource TblMain}" Text="Номер телефона:"></TextBlock>
                 <TextBlock Style="{StaticResource TblMain}" Text="{Binding phone}"></TextBlock>
             </StackPanel>
-            <Button Background="Red" Content="Sign Out" Click="BtnLogout_Click"></Button>
+            <Button Background="Red" Content="Выйти из системы" Click="BtnLogout_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

@@ -10,8 +10,8 @@
 
     <Grid>
         <StackPanel Style="{StaticResource StackPanelAdaptive}">
-            <Button Background="LightGreen" Content="Sign In" Click="BtnLogin_Click"></Button>
-            <Button Background="LightGreen" Content="Sign Up" Click="BtnRegister_Click"></Button>
+            <Button Background="LightGreen" Content="Войти" Click="BtnLogin_Click"></Button>
+            <Button Background="LightGreen" Content="Зарегистрироваться" Click="BtnRegister_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>
