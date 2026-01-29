@@ -23,4 +23,5 @@ SSO система для участия в мини-хакатоне от Но�
 2. Импортировать корневой сертификат [NorbitCA.crt](https://github.com/TrainzCity/NorbitSSO/blob/main/src/NoribtSSO/NorbitCA.crt "NorbitCA.crt") в хранилище доверенных сертификатов
 
 3.1. Запустить скомпилированную версию приложения из [Releases](https://github.com/TrainzCity/NorbitSSO/releases "Releases")
+
 3.2. Склонировать репозиторий проекта, открыть решение NorbitSSO.sln, выбрать проект UserApp и запустить в режиме Debug | Any CPU.
