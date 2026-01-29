@@ -68,7 +68,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="phone" class="form-label">Номер телефона <span class="text-danger">*</span></label>
                         <input type="tel" class="form-control" id="phone" name="User.Phone" 
-                               value="@Model.User?.Phone" required maxlength="12" placeholder="Format: 12 digits">
+                               value="@Model.User?.Phone" required maxlength="12" placeholder="Формат: +7XXXXXXXXXX">
                         <span asp-validation-for="User.Phone" class="text-danger"></span>
                     </div>
                 </div>

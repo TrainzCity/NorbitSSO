@@ -37,27 +37,27 @@ namespace AuthWEB.Pages
             // Validate model state
             if (!ModelState.IsValid)
             {
-                ErrorMessage = "Please correct the validation errors below.";
+                ErrorMessage = "Проверьте правильность заполнения полей.";
                 return Page();
             }
 
             // Validate required fields
             if (string.IsNullOrWhiteSpace(Username))
             {
-                ErrorMessage = "Username is required.";
+                ErrorMessage = "Логин обязателен.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = "Password is required.";
+                ErrorMessage = "Пароль обязателен.";
                 return Page();
             }
 
             // Validate password length
             if (Password.Length < 6)
             {
-                ErrorMessage = "Password must be at least 6 characters long.";
+                ErrorMessage = "Длина пароля должна быть не менее 6 символов.";
                 return Page();
             }
 
@@ -71,7 +71,7 @@ namespace AuthWEB.Pages
 
                 if (string.IsNullOrEmpty(JwtToken))
                 {
-                    ErrorMessage = "Invalid username or password.";
+                    ErrorMessage = "Неверное имя пользователя или пароль.";
                     return Page();
                 }
 
@@ -95,7 +95,7 @@ namespace AuthWEB.Pages
                     return Redirect($"{returnUrl}?token={Uri.EscapeDataString(JwtToken)}&status=success");
                 }
 
-                SuccessMessage = $"Login successful! Welcome, {Username}. Your JWT token has been securely stored.";
+                SuccessMessage = $"Успешная авторизация, добро пожаловать {Username}. Твой JWT токен сохранён.";
                 
                 // Clear the form
                 Username = string.Empty;

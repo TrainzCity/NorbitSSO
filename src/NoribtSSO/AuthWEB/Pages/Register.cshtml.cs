@@ -42,46 +42,46 @@ namespace AuthWEB.Pages
             // Validate model state
             if (!ModelState.IsValid)
             {
-                ErrorMessage = "Please correct the validation errors below.";
+                ErrorMessage = "Пожалуйста, проверьте правильность заполнения полей формы";
                 return Page();
             }
 
             // Validate password confirmation
             if (Password != ConfirmPassword)
             {
-                ErrorMessage = "Passwords do not match.";
+                ErrorMessage = "Пароли не совпадают.";
                 return Page();
             }
 
             // Validate password length
             if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
             {
-                ErrorMessage = "Password must be at least 6 characters long.";
+                ErrorMessage = "Пароль должен быть не менее 6 символов.";
                 return Page();
             }
 
             // Validate required fields
             if (string.IsNullOrWhiteSpace(User.Surname))
             {
-                ErrorMessage = "Last Name is required.";
+                ErrorMessage = "Фамилия обязательна.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(User.Name))
             {
-                ErrorMessage = "First Name is required.";
+                ErrorMessage = "Имя обязательно.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(User.Phone))
             {
-                ErrorMessage = "Phone Number is required.";
+                ErrorMessage = "Номер телефона обязателен.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(User.Login))
             {
-                ErrorMessage = "Username is required.";
+                ErrorMessage = "Имя пользователя обязательно.";
                 return Page();
             }
 
@@ -89,7 +89,7 @@ namespace AuthWEB.Pages
             string phoneDigits = User.Phone.Substring(1, 11);
             if (User.Phone[0] != '+' || User.Phone.Length != 12 || !phoneDigits.All(char.IsDigit))
             {
-                ErrorMessage = "Phone number must be exactly 12 digits.";
+                ErrorMessage = "Неверный формат номера телефона";
                 return Page();
             }
 
@@ -101,13 +101,13 @@ namespace AuthWEB.Pages
                     var addr = new System.Net.Mail.MailAddress(User.Email);
                     if (addr.Address != User.Email)
                     {
-                        ErrorMessage = "Invalid email format.";
+                        ErrorMessage = "Неверный формат Email.";
                         return Page();
                     }
                 }
                 catch
                 {
-                    ErrorMessage = "Invalid email format.";
+                    ErrorMessage = "Неверный формат Email.";
                     return Page();
                 }
             }
@@ -124,7 +124,7 @@ namespace AuthWEB.Pages
                 // Send user data to NorbitAPI backend
                 await SendUserToBackendAsync(User);
 
-                SuccessMessage = $"Registration successful! Welcome, {User.Name} {User.Surname}. Your username is: {User.Login}";
+                SuccessMessage = $"Успешная регистрация! Добро пожаловать, {User.Name} {User.Surname}. Твой логин: {User.Login}";
                 
                 // Clear the form
                 User = new();
@@ -135,7 +135,7 @@ namespace AuthWEB.Pages
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"An error occurred during registration: {ex.Message}";
+                ErrorMessage = $"Во время регистрации возникла проблема: {ex.Message}";
                 return Page();
             }
         }
