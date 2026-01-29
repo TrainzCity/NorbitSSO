@@ -12,6 +12,7 @@ SSO система для участия в мини-хакатоне от Но�
 Страница регистрации: `https://web.test:2443/Register`
 
 Вариант 2: Запуск через Visual Studio
+
 0. Развернуть Microsoft SQL Server и импортировать базу данных при помощи [скрипта](https://github.com/TrainzCity/NorbitSSO/blob/main/src/NorbitBase.sql "скрипта")
 1. Полностью склонировать репозиторий
 2. Открыть решение NorbitSSO.sln
