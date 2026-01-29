@@ -4,4 +4,32 @@
     build:
       context: .
       dockerfile: AuthWEB/Dockerfile
-
+    ports:
+      - 7067:8081
+      - 5020:8080
+  api:
+    image: norbitapi
+    build:
+      context: .
+      dockerfile: NorbitApi/Dockerfile
+    ports:
+      - 7034:8081
+      - 5207:8080
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: 'Y'
+    ports:
+      - 10433:1433
+    volumes:
+      - ./data:/var/opt/mssql/data/
+  proxy:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    ports:
+      - '4080:80'   # HTTP
+      - '4081:81'   # Админ-панель NPM
+      - '2443:443' # HTTPS
+    volumes:
+      - ./nginx:/data
+      - ./letsencrypt:/etc/letsencrypt
