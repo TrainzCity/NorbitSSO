@@ -26,5 +26,7 @@ RUN dotnet publish "./NorbitApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 # Этот этап используется в рабочей среде или при запуске из VS в обычном режиме (по умолчанию, когда конфигурация отладки не используется)
 FROM base AS final
 WORKDIR /app
+COPY ./NorbitCA.crt /etc/ssl/certs/NorbitCA.pem
+COPY ./NorbitCA.crt /etc/ssl/certs/42e71bb6.0
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "NorbitApi.dll"]

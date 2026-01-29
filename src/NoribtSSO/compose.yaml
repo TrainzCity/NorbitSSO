@@ -17,6 +17,9 @@
       - 10433:1433
     volumes:
       - ./data:/var/opt/mssql/data/
+      - ./mssql.conf:/var/opt/mssql/mssql.conf
+      - ./sql.crt:/etc/ssl/certs/mssql.pem
+      - ./sql.key:/etc/ssl/certs/mssql.key
   proxy:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: nginx-proxy-manager
