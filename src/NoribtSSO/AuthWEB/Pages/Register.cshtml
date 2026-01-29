@@ -1,7 +1,7 @@
 @page
 @model AuthWEB.Pages.Register
 @{
-    ViewData["Title"] = "Регистрация пользователя";
+    ViewData["Title"] = "Р РµРіРёСЃС‚СЂР°С†РёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ";
 }
 
 <div class="container mt-5">
@@ -26,14 +26,14 @@
             <form method="post" class="mt-4">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="surname" class="form-label">Фамилия <span class="text-danger">*</span></label>
+                        <label for="surname" class="form-label">Р¤Р°РјРёР»РёСЏ <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="surname" name="User.Surname" 
                                value="@Model.User?.Surname" required maxlength="50">
                         <span asp-validation-for="User.Surname" class="text-danger"></span>
                     </div>
                     
                     <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label">Имя <span class="text-danger">*</span></label>
+                        <label for="name" class="form-label">РРјСЏ <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="name" name="User.Name" 
                                value="@Model.User?.Name" required maxlength="25">
                         <span asp-validation-for="User.Name" class="text-danger"></span>
@@ -42,14 +42,14 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="patronymic" class="form-label">Отчество</label>
+                        <label for="patronymic" class="form-label">РћС‚С‡РµСЃС‚РІРѕ</label>
                         <input type="text" class="form-control" id="patronymic" name="User.Patronymic" 
                                value="@Model.User?.Patronymic" maxlength="30">
-                        <small class="form-text text-muted">Необязательно</small>
+                        <small class="form-text text-muted">РќРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ</small>
                     </div>
                     
                     <div class="col-md-6 mb-3">
-                        <label for="birthday" class="form-label">Дата рождения <span class="text-danger">*</span></label>
+                        <label for="birthday" class="form-label">Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="birthday" name="User.Birthday" 
                                value="@Model.User?.Birthday.ToString("yyyy-MM-dd")" required>
                         <span asp-validation-for="User.Birthday" class="text-danger"></span>
@@ -58,48 +58,48 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="email" class="form-label">Электронная почта</label>
+                        <label for="email" class="form-label">Р­Р»РµРєС‚СЂРѕРЅРЅР°СЏ РїРѕС‡С‚Р°</label>
                         <input type="email" class="form-control" id="email" name="User.Email" 
                                value="@Model.User?.Email" maxlength="120">
-                        <small class="form-text text-muted">Необязательно</small>
+                        <small class="form-text text-muted">РќРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ</small>
                         <span asp-validation-for="User.Email" class="text-danger"></span>
                     </div>
                     
                     <div class="col-md-6 mb-3">
-                        <label for="phone" class="form-label">Номер телефона <span class="text-danger">*</span></label>
+                        <label for="phone" class="form-label">РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° <span class="text-danger">*</span></label>
                         <input type="tel" class="form-control" id="phone" name="User.Phone" 
-                               value="@Model.User?.Phone" required maxlength="12" placeholder="Формат: +7XXXXXXXXXX">
+                               value="@Model.User?.Phone" required maxlength="12" placeholder="Р¤РѕСЂРјР°С‚: +7XXXXXXXXXX">
                         <span asp-validation-for="User.Phone" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="login" class="form-label">Логин <span class="text-danger">*</span></label>
+                        <label for="login" class="form-label">Р›РѕРіРёРЅ <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="login" name="User.Login" 
                                value="@Model.User?.Login" required maxlength="25">
                         <span asp-validation-for="User.Login" class="text-danger"></span>
                     </div>
                     
                     <div class="col-md-6 mb-3">
-                        <label for="password" class="form-label">Пароль <span class="text-danger">*</span></label>
+                        <label for="password" class="form-label">РџР°СЂРѕР»СЊ <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="password" name="Password" 
                                required minlength="6">
-                        <small class="form-text text-muted">Минимум 6 знаков</small>
+                        <small class="form-text text-muted">РњРёРЅРёРјСѓРј 6 Р·РЅР°РєРѕРІ</small>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label for="confirmPassword" class="form-label">Подтвердите пароль <span class="text-danger">*</span></label>
+                        <label for="confirmPassword" class="form-label">РџРѕРґС‚РІРµСЂРґРёС‚Рµ РїР°СЂРѕР»СЊ <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword" 
                                required minlength="6">
                     </div>
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Зарегистрироватья</button>
-                    <a href="/" class="btn btn-secondary btn-lg">Отмена</a>
+                    <button type="submit" class="btn btn-primary btn-lg">Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЏ</button>
+                    <a href="/" class="btn btn-secondary btn-lg">РћС‚РјРµРЅР°</a>
                 </div>
             </form>
         </div>

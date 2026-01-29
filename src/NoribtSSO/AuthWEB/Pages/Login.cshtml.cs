@@ -37,27 +37,27 @@ namespace AuthWEB.Pages
             // Validate model state
             if (!ModelState.IsValid)
             {
-                ErrorMessage = "Проверьте правильность заполнения полей.";
+                ErrorMessage = "РџСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ Р·Р°РїРѕР»РЅРµРЅРёСЏ РїРѕР»РµР№.";
                 return Page();
             }
 
             // Validate required fields
             if (string.IsNullOrWhiteSpace(Username))
             {
-                ErrorMessage = "Логин обязателен.";
+                ErrorMessage = "Р›РѕРіРёРЅ РѕР±СЏР·Р°С‚РµР»РµРЅ.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = "Пароль обязателен.";
+                ErrorMessage = "РџР°СЂРѕР»СЊ РѕР±СЏР·Р°С‚РµР»РµРЅ.";
                 return Page();
             }
 
             // Validate password length
             if (Password.Length < 6)
             {
-                ErrorMessage = "Длина пароля должна быть не менее 6 символов.";
+                ErrorMessage = "Р”Р»РёРЅР° РїР°СЂРѕР»СЏ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РЅРµ РјРµРЅРµРµ 6 СЃРёРјРІРѕР»РѕРІ.";
                 return Page();
             }
 
@@ -71,7 +71,7 @@ namespace AuthWEB.Pages
 
                 if (string.IsNullOrEmpty(JwtToken))
                 {
-                    ErrorMessage = "Неверное имя пользователя или пароль.";
+                    ErrorMessage = "РќРµРІРµСЂРЅРѕРµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР»Рё РїР°СЂРѕР»СЊ.";
                     return Page();
                 }
 
@@ -95,7 +95,7 @@ namespace AuthWEB.Pages
                     return Redirect($"{returnUrl}?token={Uri.EscapeDataString(JwtToken)}&status=success");
                 }
 
-                SuccessMessage = $"Успешная авторизация, добро пожаловать {Username}. Твой JWT токен сохранён.";
+                SuccessMessage = $"РЈСЃРїРµС€РЅР°СЏ Р°РІС‚РѕСЂРёР·Р°С†РёСЏ, РґРѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ {Username}. РўРІРѕР№ JWT С‚РѕРєРµРЅ СЃРѕС…СЂР°РЅС‘РЅ.";
                 
                 // Clear the form
                 Username = string.Empty;

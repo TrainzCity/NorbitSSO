@@ -42,46 +42,46 @@ namespace AuthWEB.Pages
             // Validate model state
             if (!ModelState.IsValid)
             {
-                ErrorMessage = "Пожалуйста, проверьте правильность заполнения полей формы";
+                ErrorMessage = "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїСЂРѕРІРµСЂСЊС‚Рµ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ Р·Р°РїРѕР»РЅРµРЅРёСЏ РїРѕР»РµР№ С„РѕСЂРјС‹";
                 return Page();
             }
 
             // Validate password confirmation
             if (Password != ConfirmPassword)
             {
-                ErrorMessage = "Пароли не совпадают.";
+                ErrorMessage = "РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚.";
                 return Page();
             }
 
             // Validate password length
             if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
             {
-                ErrorMessage = "Пароль должен быть не менее 6 символов.";
+                ErrorMessage = "РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РЅРµ РјРµРЅРµРµ 6 СЃРёРјРІРѕР»РѕРІ.";
                 return Page();
             }
 
             // Validate required fields
             if (string.IsNullOrWhiteSpace(User.Surname))
             {
-                ErrorMessage = "Фамилия обязательна.";
+                ErrorMessage = "Р¤Р°РјРёР»РёСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅР°.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(User.Name))
             {
-                ErrorMessage = "Имя обязательно.";
+                ErrorMessage = "РРјСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(User.Phone))
             {
-                ErrorMessage = "Номер телефона обязателен.";
+                ErrorMessage = "РќРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РѕР±СЏР·Р°С‚РµР»РµРЅ.";
                 return Page();
             }
 
             if (string.IsNullOrWhiteSpace(User.Login))
             {
-                ErrorMessage = "Имя пользователя обязательно.";
+                ErrorMessage = "РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ.";
                 return Page();
             }
 
@@ -89,7 +89,7 @@ namespace AuthWEB.Pages
             string phoneDigits = User.Phone.Substring(1, 11);
             if (User.Phone[0] != '+' || User.Phone.Length != 12 || !phoneDigits.All(char.IsDigit))
             {
-                ErrorMessage = "Неверный формат номера телефона";
+                ErrorMessage = "РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РЅРѕРјРµСЂР° С‚РµР»РµС„РѕРЅР°";
                 return Page();
             }
 
@@ -101,13 +101,13 @@ namespace AuthWEB.Pages
                     var addr = new System.Net.Mail.MailAddress(User.Email);
                     if (addr.Address != User.Email)
                     {
-                        ErrorMessage = "Неверный формат Email.";
+                        ErrorMessage = "РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ Email.";
                         return Page();
                     }
                 }
                 catch
                 {
-                    ErrorMessage = "Неверный формат Email.";
+                    ErrorMessage = "РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ Email.";
                     return Page();
                 }
             }
@@ -124,7 +124,7 @@ namespace AuthWEB.Pages
                 // Send user data to NorbitAPI backend
                 await SendUserToBackendAsync(User);
 
-                SuccessMessage = $"Успешная регистрация! Добро пожаловать, {User.Name} {User.Surname}. Твой логин: {User.Login}";
+                SuccessMessage = $"РЈСЃРїРµС€РЅР°СЏ СЂРµРіРёСЃС‚СЂР°С†РёСЏ! Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ, {User.Name} {User.Surname}. РўРІРѕР№ Р»РѕРіРёРЅ: {User.Login}";
                 
                 // Clear the form
                 User = new();
@@ -135,7 +135,7 @@ namespace AuthWEB.Pages
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Во время регистрации возникла проблема: {ex.Message}";
+                ErrorMessage = $"Р’Рѕ РІСЂРµРјСЏ СЂРµРіРёСЃС‚СЂР°С†РёРё РІРѕР·РЅРёРєР»Р° РїСЂРѕР±Р»РµРјР°: {ex.Message}";
                 return Page();
             }
         }
