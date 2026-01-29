@@ -118,6 +118,34 @@ namespace NorbitApi.Controllers
 
             return NoContent();
         }
+        [HttpPut("block/{id}")]
+        public async Task<IActionResult> BlockUser(Guid id)
+        {
+            User currUser = await _context.Users.FindAsync(id);
+            if (currUser == null)
+                return BadRequest();
+
+            currUser.IsBlocked = true;
+            _context.Entry(currUser).State = EntityState.Modified;
+            _context.Logs.Add(new Log() { StatusId = 1, TypeId = 4, User = currUser, Time = DateTime.Now });
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
 
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
